@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import *
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import *
@@ -9,7 +10,7 @@ def index(request):
     return render(request, "patients/home.html")
 
 
-class CreatePatient(CreateView):
+class CreatePatient(LoginRequiredMixin, CreateView):
     model = Patient
     context_object_name = "patient"
     fields = ["name", "mobile", "email", "gender", "address"]
@@ -18,6 +19,18 @@ class CreatePatient(CreateView):
         return reverse("patient-view", kwargs={"pk": self.object.id})
 
 
-class ViewPatient(DetailView):
+class ViewPatient(LoginRequiredMixin, DetailView):
     model = Patient
     context_object_name = "patient"
+
+
+class UpdatePatient(LoginRequiredMixin, UpdateView):
+    model = Patient
+    context_object_name = "patient"
+
+    def get_success_url(self):
+        return reverse("patient-view", kwargs={"pk": self.object.id})
+
+
+class ArchivePatient(LoginRequiredMixin, View):
+    model = Patient

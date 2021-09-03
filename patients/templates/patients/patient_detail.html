@@ -1,6 +1,6 @@
 {% extends 'common/layout.html' %}
 {% load crispy_forms_tags %}
-{% block 'container' %}
+{% block content %}
 <div class="content-section">
     <h2 style="border-bottom: 1px solid #dddddd;">{{ patient.name }}</h2>
     <table class="table table-striped">
@@ -27,7 +27,8 @@
     </table>
     <div>
         <button class="btn btn-primary">Update</button>
-        <button class="btn btn-danger">Delete</button>
+        <button class="btn btn-danger">Archive</button>
+        <p class="text-muted">Cannot be deleted! Use "Archive" instead!</p>
     </div>
 </div>
 {% endblock %}

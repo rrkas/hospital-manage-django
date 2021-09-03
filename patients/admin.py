@@ -3,4 +3,4 @@ from .models import Patient
 
 # Register your models here.
 
-admin.register(Patient)
+admin.site.register(Patient)
