@@ -1,0 +1,33 @@
+{% extends 'common/layout.html' %}
+{% load crispy_forms_tags %}
+{% block 'container' %}
+<div class="content-section">
+    <h2 style="border-bottom: 1px solid #dddddd;">{{ patient.name }}</h2>
+    <table class="table table-striped">
+        <tr>
+            <td>ID</td>
+            <td>{{ patient.id }}</td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>{{ patient.name }}</td>
+        </tr>
+        <tr>
+            <td>Phone Number</td>
+            <td>{{ patient.mobile }}</td>
+        </tr>
+        <tr>
+            <td>Email ID</td>
+            <td>{{ patient.email }}</td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td><pre><span class="inner-pre">{{ patient.address }}</span></pre></td>
+        </tr>
+    </table>
+    <div>
+        <button class="btn btn-primary">Update</button>
+        <button class="btn btn-danger">Delete</button>
+    </div>
+</div>
+{% endblock %}
