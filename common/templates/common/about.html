@@ -1,0 +1,21 @@
+{% extends 'common/layout.html' %}
+{% block content %}
+
+<h1>About this project!</h1>
+<div>
+    Features
+    <ul>
+        {% for f_name,f_details in features.items %}
+        <li>
+            {{ f_name }}
+            <ol>
+                {% for d in f_details %}
+                <li>{{ d }}</li>
+                {% endfor %}
+            </ol>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

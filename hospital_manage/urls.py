@@ -19,37 +19,59 @@ from django.contrib.auth import views as auth_views
 from django.urls import path, include
 
 from hospital_manage import settings
-from users import views as user_views
+from staffs import views as staff_views
+
+staffs = "staffs"
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('register/', user_views.register, name='register'),
-    path('profile/', user_views.profile, name='profile'),
-    path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    path("register/", staff_views.register, name="register"),
+    path("profile/", staff_views.profile, name="profile"),
     path(
-        'password-reset/',
-        auth_views.PasswordResetView.as_view(template_name='users/password_reset.html'),
-        name='password_reset',
+        "login/",
+        auth_views.LoginView.as_view(template_name=f"{staffs}/login.html"),
+        name="login",
     ),
     path(
-        'password-reset/done/',
-        auth_views.PasswordResetDoneView.as_view(template_name='users/password_reset_done.html'),
-        name='password_reset_done',
+        "logout/",
+        auth_views.LogoutView.as_view(template_name=f"{staffs}/logout.html"),
+        name="logout",
     ),
     path(
-        'password-reset/confirm/<uidb64>/<token>/',
-        auth_views.PasswordResetConfirmView.as_view(template_name='users/password_reset_confirm.html'),
-        name='password_reset_confirm',
+        "password-reset/",
+        auth_views.PasswordResetView.as_view(
+            template_name=f"{staffs}/password_reset.html"
+        ),
+        name="password_reset",
     ),
     path(
-        'password-reset-complete/',
-        auth_views.PasswordResetDoneView.as_view(template_name='users/password_reset_complete.html'),
-        name='password_reset_complete',
+        "password-reset/done/",
+        auth_views.PasswordResetDoneView.as_view(
+            template_name=f"{staffs}/password_reset_done.html"
+        ),
+        name="password_reset_done",
+    ),
+    path(
+        "password-reset/confirm/<uidb64>/<token>/",
+        auth_views.PasswordResetConfirmView.as_view(
+            template_name=f"{staffs}/password_reset_confirm.html"
+        ),
+        name="password_reset_confirm",
+    ),
+    path(
+        "password-reset-complete/",
+        auth_views.PasswordResetDoneView.as_view(
+            template_name=f"{staffs}/password_reset_complete.html"
+        ),
+        name="password_reset_complete",
     ),
     path("", include("common.urls")),
     path("patients/", include("patients.urls")),
+    path("doctors/", include("doctors.urls")),
+    path("org/", include("organization.urls")),
+    path("staffs/", include("staffs.urls")),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

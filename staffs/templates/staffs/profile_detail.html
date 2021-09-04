@@ -1,0 +1,44 @@
+{% extends "common/layout.html" %}
+{% block breadnav %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'org-home' %}">Organization</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'staff-home' %}">Staffs</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ staff.id }}</li>
+  </ol>
+</nav>
+{% endblock%}
+
+{% block content %}
+
+<div class="content-section">
+    <h3 class="mb-3">{{ staff.user.first_name }} {{ staff.user.last_name }}</h3>
+    <table class="table table-borderless">
+        <tr><td>ID</td><td><b>{{ staff.id }}</b></td></tr>
+        <tr><td>First Name</td><td><b>{{ staff.user.first_name }}</b></td></tr>
+        <tr><td>Last Name</td><td><b>{{ staff.user.last_name }}</b></td></tr>
+        <tr><td>Username</td><td>{{ staff.user.username }}</td></tr>
+        <tr>
+            <td>Email</td>
+            <td>
+                <a href="mailto:{{ staff.user.email }}" target="_blank">
+                    {{ staff.user.email }}
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>Mobile</td>
+            <td>
+                <a href="tel:{{ staff.mobile }}" target="_blank">
+                    {{ staff.mobile }}
+                </a>
+            </td>
+        </tr>
+        <tr><td>Role</td><td>{{ staff.get_role_display }}</td></tr>
+        <tr><td>Date Joined</td><td>{{ staff.user.date_joined }}</td></tr>
+        <tr><td>Active</td><td>{{ staff.user.is_active }}</td></tr>
+        <tr><td>Last Login</td><td>{{ staff.user.last_login }}</td></tr>
+    </table>
+</div>
+
+{% endblock %}

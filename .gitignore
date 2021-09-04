@@ -1,4 +1,6 @@
 .idea
 venv
+media/profile_pics
+
 .env
 *.pyc

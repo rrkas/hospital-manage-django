@@ -1,3 +1,7 @@
 from django.shortcuts import render
 
-# Create your views here.
+doc = "doctors"
+
+
+def home(request):
+    return render(request, f"{doc}/home.html")

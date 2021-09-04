@@ -14,30 +14,61 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+    <a class="navbar-brand" href="/">
         <img src="{% static 'images/hospital.png' %}" width="30" height="30" alt="">
         <span style="font-weight: 600; color: indigo;">Demo Hospital</span>
     </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+            aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarToggle">
+        <div class="navbar-nav mr-auto">
+            <a class="nav-item nav-link" href="{% url 'about' %}">About</a>
+        </div>
+        <!-- Navbar Right Side -->
+        <div class="navbar-nav">
+            {% if user.is_authenticated %}
+            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+            <a class="nav-item nav-link" href="{% url 'profile' %}">{{ user.username }}</a>
+            {% else %}
+            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+            <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+            {% endif %}
+            <a class="nav-item nav-link" href="https://rrka79wal.herokuapp.com/" target="_blank">Rohnak Agarwal</a>
+        </div>
+    </div>
 </nav>
 
-<div class="container">
+<div class="container body-container">
     <div class="row">
-        <div class="col-md-8 col-sm-12">
+        <div class="col-12">
+            {% block breadnav %}{% endblock %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-{% if user.is_authenticated %}9{% else %}12{% endif %} col-sm-12">
             {% if messages %}
             {% for msg in messages%}
             <div class="alert alert-{{ msg.tags }}">{{ msg }}</div>
             {% endfor %}
             {% endif %}
 
-            {% block content %}
-            {% endblock %}
+            {% block content %}{% endblock %}
         </div>
-        <div class="col-md-4 col-sm-12">
-            <div class="content-section">
-
+        {% if user.is_authenticated %}
+        <div class="col-md-3 col-sm-12 order-first order-md-last">
+            <div class="content-section mb-5">
+                <h3>Quick Access</h3>
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-light">
+                        <a href="{% url 'org-home' %}">Organization</a>
+                    </li>
+                </ul>
             </div>
         </div>
+        {% endif %}
     </div>
 </div>
 

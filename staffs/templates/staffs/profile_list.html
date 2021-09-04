@@ -1,0 +1,70 @@
+{% extends "common/layout.html" %}
+{% block breadnav %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'org-home' %}">Organization</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Staffs</li>
+  </ol>
+</nav>
+{% endblock%}
+
+{% block content %}
+
+<h2>Staffs</h2>
+<form class="form" method="GET" action="" style="display: flex;">
+    <input class="form-control" type="search" name="search" style="flex: 1;" value="{{ search_value }}">
+    <button class="btn btn-secondary ml-2" type="submit">Search</button>
+</form>
+
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    {% for staff in staffs %}
+    <tr>
+        <td><a href="{% url 'staff-detail' staff.id %}">{{ staff.id }}</a></td>
+        <td>
+            <a href="{% url 'staff-detail' staff.id %}">
+                {{ staff.user.first_name }} {{ staff.user.last_name }}
+            </a>
+        </td>
+        <td>{{ staff.user.username }}</td>
+        <td>{{ staff.user.email }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div style="display: flex;">
+    <div>
+        {% if page_obj.has_previous %}
+        <a href="?page=1" class="btn btn-outline-info mb-4">First</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-info mb-4">Previous</a>
+        {% endif %}
+    </div>
+
+    <div style="flex: 1; text-align: center;">
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <div class="btn btn-info mb-4">{{ num }}</div>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a href="?page={{ num }}" class="btn btn-outline-info mb-4">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <div>
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-info mb-4">Next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-info mb-4">Last</a>
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock %}
