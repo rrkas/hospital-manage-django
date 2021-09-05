@@ -27,10 +27,12 @@ class PatientCreate(LoginRequiredMixin, CreateView):
         return data
 
     def form_valid(self, form):
-        data = form.save(commit=False)
-        data.created_by = self.request.user
-        data.save()
-        return super().form_valid(form)
+        valid = super().form_valid(form)
+        if valid:
+            data = form.save(commit=False)
+            data.created_by = self.request.user
+            data.save()
+        return valid
 
 
 class PatientDetail(LoginRequiredMixin, DetailView):

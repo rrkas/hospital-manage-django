@@ -8,7 +8,7 @@ from hospital_manage import settings as global_settings
 
 
 class Patient(models.Model):
-    image = models.ImageField(default='patient.jpg', null=True)
+    image = models.ImageField(default='patient.jpg', upload_to='patient_pics')
     name = models.CharField(max_length=100)
     dob = models.DateField(verbose_name="Date of Birth (DOB)")
     gender = models.CharField(
@@ -18,6 +18,7 @@ class Patient(models.Model):
             ("female", "Female"),
             ("other", "Other"),
         ),
+        default="male"
     )
     mobile = models.CharField(
         max_length=20,
@@ -38,6 +39,7 @@ class Patient(models.Model):
         validators=[
             RegexValidator(r"[0-9]{4} [0-9]{4} [0-9]{4}", "Invalid aadhaar number!")
         ],
+        null=True,
         unique=True,
     )
 

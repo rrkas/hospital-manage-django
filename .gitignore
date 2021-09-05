@@ -1,6 +1,7 @@
 .idea
 venv
 media/profile_pics
+media/patient_pics
 
 .env
 *.pyc

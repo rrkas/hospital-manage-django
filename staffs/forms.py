@@ -15,7 +15,6 @@ class UserRegisterForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super().save(commit)
-        Profile.objects.create(user=user)
         return user
 
     class Meta:
@@ -48,3 +47,15 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ["image", "mobile"]
+
+
+class ProfileCreateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["image", "mobile"]
+
+    def __init__(self, *args, **kwargs):
+        unrequired_fields = ["image"]
+        super().__init__(*args, **kwargs)
+        for field in unrequired_fields:
+            self.fields[field].required = False

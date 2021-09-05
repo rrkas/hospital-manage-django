@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import *
 
 import hospital_manage.settings as global_settings
-from staffs.forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from staffs.forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, ProfileCreateForm
 from staffs.models import Profile
 
 staffs = "staffs"
@@ -14,16 +14,23 @@ staffs = "staffs"
 
 def register(request):
     if request.method == "POST":
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
+        u_form = UserRegisterForm(request.POST)
+        p_form = ProfileCreateForm(request.POST, request.FILES)
+        if u_form.is_valid() and p_form.is_valid():
+            user = u_form.save()
+            form = p_form.instance
+            form.user = user
             form.save()
-            messages.success(
-                request, "Account created successfully! You are now able to login!"
-            )
+            messages.success(request, "Account created successfully! You will be able to login !")
             return redirect("login")
     else:
-        form = UserRegisterForm()
-    return render(request, f"{staffs}/register.html", {"form": form})
+        u_form = UserRegisterForm()
+        p_form = ProfileCreateForm()
+    context = {
+        "u_form": u_form,
+        "p_form": p_form,
+    }
+    return render(request, f"{staffs}/register.html", context)
 
 
 @login_required

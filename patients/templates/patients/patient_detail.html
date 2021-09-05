@@ -49,7 +49,7 @@
         </tr>
         <tr>
             <td>Aadhaar Number</td>
-            <td>{{ patient.aadhaar }}</td>
+            <td>{% if patient.aadhaar %}{{ patient.aadhaar }}{% endif %}</td>
         </tr>
         <tr>
             <td>Address</td>

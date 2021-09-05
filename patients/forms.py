@@ -43,3 +43,8 @@ class UpdatePatientForm(forms.ModelForm):
         self.fields['image'].required = False
         self.fields['email'].required = False
         self.fields['aadhaar'].required = False
+
+    def save(self, commit=True):
+        if not self.aadhaar:
+            self.aadhaar = None
+        return super().save(commit)
