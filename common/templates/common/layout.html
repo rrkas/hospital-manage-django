@@ -45,16 +45,15 @@
     <div class="row">
         <div class="col-12">
             {% block breadnav %}{% endblock %}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-{% if user.is_authenticated %}9{% else %}12{% endif %} col-sm-12">
             {% if messages %}
             {% for msg in messages%}
             <div class="alert alert-{{ msg.tags }}">{{ msg }}</div>
             {% endfor %}
             {% endif %}
-
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-{% if user.is_authenticated %}9{% else %}12{% endif %} col-sm-12">
             {% block content %}{% endblock %}
         </div>
         {% if user.is_authenticated %}

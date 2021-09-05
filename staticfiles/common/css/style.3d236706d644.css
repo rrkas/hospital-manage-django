@@ -1,0 +1,11 @@
+.body-container{
+    padding-top: 70px;
+}
+.content-section{
+    background: #ffffff;
+    padding: 10px 10px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+td { white-space:pre }

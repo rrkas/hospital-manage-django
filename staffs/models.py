@@ -1,11 +1,24 @@
 from PIL import Image
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
+from django.core.validators import RegexValidator
 from django.db import models
+
+import hospital_manage.settings as global_settings
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    mobile = models.CharField(max_length=15, null=True)
+    mobile = models.CharField(
+        max_length=20,
+        validators=[
+            RegexValidator(
+                global_settings.PHONE_NUMBER_REGEX,
+                "Invalid format! Format: +(1-3) (9-13)"
+            )
+        ],
+        help_text="Format: +(1-3) (9-13)",
+        unique=True,
+    )
     role = models.CharField(
         max_length=20,
         choices=(

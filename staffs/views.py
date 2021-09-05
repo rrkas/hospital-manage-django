@@ -5,7 +5,9 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic import *
 
-from staffs.forms import *
+import hospital_manage.settings as global_settings
+from staffs.forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from staffs.models import Profile
 
 staffs = "staffs"
 
@@ -50,7 +52,7 @@ class ProfileList(LoginRequiredMixin, ListView):
     model = Profile
     context_object_name = "staffs"
     ordering = ["first_name", "last_name"]
-    paginate_by = 10
+    paginate_by = global_settings.PAGINATION_COUNT
 
     def get_queryset(self):
         query = self.request.GET.get("search")

@@ -11,9 +11,12 @@
 
 {% block content %}
 
-<div class="content-section">
-    <h3 class="mb-3">{{ staff.user.first_name }} {{ staff.user.last_name }}</h3>
-    <table class="table table-borderless">
+<div class="content-section mb-5">
+    <span>
+        <span><img class="rounded-circle" src="{{ user.profile.image.url }}" width="80px" height="80px"></span>
+        <span class="ml-3 mb-3 h3">{{ staff.user.first_name }} {{ staff.user.last_name }}</span>
+    </span>
+    <table class="mt-2 table table-borderless">
         <tr><td>ID</td><td><b>{{ staff.id }}</b></td></tr>
         <tr><td>First Name</td><td><b>{{ staff.user.first_name }}</b></td></tr>
         <tr><td>Last Name</td><td><b>{{ staff.user.last_name }}</b></td></tr>

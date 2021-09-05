@@ -1,15 +1,31 @@
 {% extends 'common/layout.html' %}
+{% block breadnav %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'org-home' %}">Organization</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'patient-home' %}">Patients</a></li>
+        <li class="breadcrumb-item active" aria-current="page">
+            {% if update_mode %}
+            {{ patient.pk }} (Update)
+            {% else %}
+            New
+            {% endif %}
+        </li>
+    </ol>
+</nav>
+{% endblock%}
+
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="content-section">
     <form method="post">
         {% csrf_token %}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Patient Form</legend>
+            <legend class="border-bottom mb-4">{% if update_mode %}Update{% else %}Create{% endif %} Patient</legend>
             {{ form | crispy }}
         </fieldset>
         <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Create</button>
+            <button class="btn btn-info" type="submit">{% if update_mode %}Update{% else %}Create{% endif %}</button>
         </div>
     </form>
 </div>

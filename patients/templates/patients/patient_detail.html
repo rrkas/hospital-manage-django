@@ -1,34 +1,101 @@
 {% extends 'common/layout.html' %}
 {% load crispy_forms_tags %}
+{% block breadnav %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'org-home' %}">Organization</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'patient-home' %}">Patients</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ patient.id }}</li>
+    </ol>
+</nav>
+{% endblock%}
+
 {% block content %}
-<div class="content-section">
-    <h2 style="border-bottom: 1px solid #dddddd;">{{ patient.name }}</h2>
-    <table class="table table-striped">
+<div class="content-section mb-5">
+    <span>
+        <span><img class="rounded-circle" src="{{ patient.image.url }}" alt="" width="80px" height="80px"></span>
+        <span class="ml-3 mb-3 h3">{{ patient.name }}</span>
+    </span>
+    <table class="mt-2 table table-striped">
         <tr>
             <td>ID</td>
-            <td>{{ patient.id }}</td>
+            <td><b>{{ patient.pk }}</b></td>
         </tr>
         <tr>
             <td>Name</td>
-            <td>{{ patient.name }}</td>
+            <td><b>{{ patient.name }}</b></td>
         </tr>
         <tr>
-            <td>Phone Number</td>
-            <td>{{ patient.mobile }}</td>
+            <td>Date of Birth</td>
+            <td>{{ patient.dob }}</td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>{{ patient.get_gender_display }}</td>
+        </tr>
+        <tr>
+            <td>Mobile</td>
+            <td><a href="tel:{{ patient.mobile }}">{{ patient.mobile }}</a></td>
         </tr>
         <tr>
             <td>Email ID</td>
-            <td>{{ patient.email }}</td>
+            <td>
+                {% if patient.email %}
+                <a href="mailto:{{ patient.email }}">{{ patient.email }}</a>
+                {% else %}
+                {{ patient.email }}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>Aadhaar Number</td>
+            <td>{{ patient.aadhaar }}</td>
         </tr>
         <tr>
             <td>Address</td>
-            <td><pre><span class="inner-pre">{{ patient.address }}</span></pre></td>
+            <td class="pre">{{ patient.address }}</td>
         </tr>
+        <tr>
+            <td>Date Created</td>
+            <td>{{ patient.date_created }}</td>
+        </tr>
+        <tr>
+            <td>Created By</td>
+            <td>
+                {% if patient.created_by.profile.pk %}
+                <a href="{% url 'staff-detail' patient.created_by.profile.pk %}">{{ patient.created_by }}</a>
+                {% else %}
+                {{ patient.created_by }}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>Archived</td>
+            <td>{{ patient.archived }}</td>
+        </tr>
+        {% if patient.archived %}
+        <tr>
+            <td>Archived By</td>
+            <td>
+                {% if patient.archived_by.profile.pk %}
+                <a href="{% url 'staff-detail' patient.archived_by.profile.pk %}">
+                    {{ patient.archived_by }}
+                </a>
+                {% else %}
+                {{ patient.archived_by }}
+                {% endif %}
+            </td>
+        </tr>
+        {% endif %}
     </table>
     <div>
-        <button class="btn btn-primary">Update</button>
-        <button class="btn btn-danger">Archive</button>
-        <p class="text-muted">Cannot be deleted! Use "Archive" instead!</p>
+        {% if not patient.archived %}
+        <form method="post" action="{% url 'patient-archive' patient.pk %}">
+            {% csrf_token %}
+            <a class="btn btn-outline-info" href="{% url 'patient-update' patient.pk %}">Update</a>
+            <button class="btn btn-danger" onclick="return confirm('Are you sure?');">Archive</button>
+        </form>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
