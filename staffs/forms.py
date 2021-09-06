@@ -42,8 +42,6 @@ class ProfileCreateForm(forms.ModelForm):
             self.fields[field].required = False
 
 
-
-
 # -------------------------------------------------
 
 # self update

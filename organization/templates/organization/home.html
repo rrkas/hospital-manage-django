@@ -1,9 +1,9 @@
 {% extends 'common/layout.html' %}
 {% block breadnav %}
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item active" aria-current="page">Organization</li>
-  </ol>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Organization</li>
+    </ol>
 </nav>
 {% endblock%}
 
@@ -11,16 +11,34 @@
 
 <h2>Organization</h2>
 <div class="content-section">
-    <ul class="list-group">
-        {% for item in items %}
-        <li class="list-group-item list-group-item-light">
-            <a href="{% url item.url_name %}" style="display: flex;">
-                <span  style="flex: 1;">{{ item.name }}</span>
-                <span>{{ item.count }}</span>
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <h3>Groups</h3>
+            <ul class="list-group">
+                {% for grp in groups %}
+                <li class="list-group-item list-group-item-light">
+                    <a href="{% url grp.url_name %}" style="display: flex;">
+                        <span style="flex: 1;">{{ grp.name }}</span>
+                        <span>{{ grp.count }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <h3>Individuals</h3>
+            <ul class="list-group">
+                {% for item in individuals %}
+                <li class="list-group-item list-group-item-light">
+                    <a href="{% url item.url_name %}" style="display: flex;">
+                        <span style="flex: 1;">{{ item.name }}</span>
+                        <span>{{ item.count }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

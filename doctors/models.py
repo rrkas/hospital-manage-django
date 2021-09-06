@@ -16,7 +16,7 @@ def dob_validator(value):
 
 
 class Doctor(models.Model):
-    image = models.ImageField(default='patient.jpg', upload_to='patient_pics')
+    image = models.ImageField(default="doctor.jpg", upload_to="doctor_pics")
     name = models.CharField(max_length=100)
     dob = models.DateField(
         verbose_name="Date of Birth (DOB)",
@@ -29,14 +29,14 @@ class Doctor(models.Model):
             ("female", "Female"),
             ("other", "Other"),
         ),
-        default="male"
+        default="male",
     )
     mobile = models.CharField(
         max_length=20,
         validators=[
             RegexValidator(
                 global_settings.PHONE_NUMBER_REGEX,
-                "Invalid format! Format: +(1-3) (9-13)"
+                "Invalid format! Format: +(1-3) (9-13)",
             )
         ],
         help_text="Format: +(1-3) (9-13)",
@@ -72,7 +72,7 @@ class Doctor(models.Model):
     )
 
     def get_absolute_url(self):
-        return reverse("patient-detail", kwargs={"pk": self.pk})
+        return reverse("doctor-detail", kwargs={"pk": self.pk})
 
     def age(self):
         return int((timezone.now().date() - self.dob).days / 365.25)

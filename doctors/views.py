@@ -56,7 +56,10 @@ class DoctorList(LoginRequiredMixin, ListView):
     def get_queryset(self):
         query = self.request.GET.get("search")
         if query:
-            result = Doctor.objects.filter(Q(pk=query) | Q(name__icontains=query))
+            if str(query).isnumeric():
+                result = Doctor.objects.filter(Q(pk=query) | Q(name__icontains=query))
+            else:
+                result = Doctor.objects.filter(Q(name__icontains=query))
         else:
             result = Doctor.objects.all()
         return result.order_by("id")
@@ -75,4 +78,4 @@ def doctor_archive(request, pk):
         doctor.date_archived = timezone.now()
         doctor.save()
         messages.warning(request, f"Doctor {pk} archived!")
-    return redirect('doctor-detail', pk=pk)
+    return redirect("doctor-detail", pk=pk)

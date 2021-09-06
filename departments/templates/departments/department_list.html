@@ -3,24 +3,24 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'org-home' %}">Organization</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Patients</li>
+        <li class="breadcrumb-item active" aria-current="page">Departments</li>
     </ol>
 </nav>
 {% endblock%}
 
 {% block content %}
 
-<h2>Patients</h2>
+<h2>Departments</h2>
 <form class="form" method="GET" action="" style="display: flex;">
     <input class="form-control" type="search" name="search" style="flex: 1;"
            placeholder="{% if not search_value %}Enter id or name to search{% endif %}"
            value="{% if search_value %}{{ search_value }}{% endif %}">
     {% if search_value %}
-    <a class="btn btn-secondary ml-2" href="{% url 'patient-home' %}">Clear</a>
+    <a class="btn btn-secondary ml-2" href="{% url 'department-home' %}">Clear</a>
     {% else %}
     <button class="btn btn-secondary ml-2" type="submit">Search</button>
     {% endif %}
-    <a class="btn btn-success ml-2" style="color: white;" href="{% url 'patient-create' %}">New</a>
+    <a class="btn btn-success ml-2" style="color: white;" href="{% url 'department-create' %}">New</a>
 </form>
 
 
@@ -28,13 +28,15 @@
     <thead class="thead-light">
     <tr>
         <th>Name</th>
-        <th>Mobile</th>
+        <th>Abbr</th>
+        <th>Doctors</th>
     </tr>
     </thead>
-    {% for patient in patients %}
-    <tr style="{% if patient.archived %}background-color: #ffcccb;{% endif %}">
-        <td><a href="{% url 'patient-detail' patient.pk %}">{{ patient.name }}</a></td>
-        <td>{{ patient.mobile }}</td>
+    {% for department in departments %}
+    <tr style="{% if department.archived %}background-color: #ffcccb;{% endif %}">
+        <td><a href="{% url 'department-detail' department.pk %}">{{ department.name }}</a></td>
+        <td>{{ department.abbr }}</td>
+        <td>{{ department.doctor_count }}</td>
     </tr>
     {% endfor %}
 </table>

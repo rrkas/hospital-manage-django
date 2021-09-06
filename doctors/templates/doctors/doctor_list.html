@@ -13,6 +13,7 @@
 <h2>Doctors</h2>
 <form class="form" method="GET" action="" style="display: flex;">
     <input class="form-control" type="search" name="search" style="flex: 1;"
+           placeholder="{% if not search_value %}Enter id or name to search{% endif %}"
            value="{% if search_value %}{{ search_value }}{% endif %}">
     {% if search_value %}
     <a class="btn btn-secondary ml-2" href="{% url 'doctor-home' %}">Clear</a>
@@ -26,15 +27,15 @@
 <table class="table">
     <thead class="thead-light">
     <tr>
-        <th>ID</th>
         <th>Name</th>
+        <th>Department</th>
         <th>Mobile</th>
     </tr>
     </thead>
     {% for doctor in doctors %}
     <tr style="{% if doctor.archived %}background-color: #ffcccb;{% endif %}">
-        <td><a href="{% url 'doctor-detail' doctor.id %}">{{ doctor.id }}</a></td>
-        <td><a href="{% url 'doctor-detail' doctor.id %}">{{ doctor.name }}</a></td>
+        <td><a href="{% url 'doctor-detail' doctor.pk %}">{{ doctor.name }}</a></td>
+        <td><a href="{% url 'department-detail' doctor.department.pk %}">{{ doctor.department.name }} ({{ doctor.department.abbr }})</a></td>
         <td>{{ doctor.mobile }}</td>
     </tr>
     {% endfor %}

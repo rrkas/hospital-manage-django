@@ -15,7 +15,7 @@ def dob_validator(value):
 
 
 class Patient(models.Model):
-    image = models.ImageField(default='patient.jpg', upload_to='patient_pics')
+    image = models.ImageField(default="patient.jpg", upload_to="patient_pics")
     name = models.CharField(max_length=100)
     dob = models.DateField(
         verbose_name="Date of Birth (DOB)",
@@ -28,14 +28,14 @@ class Patient(models.Model):
             ("female", "Female"),
             ("other", "Other"),
         ),
-        default="male"
+        default="male",
     )
     mobile = models.CharField(
         max_length=20,
         validators=[
             RegexValidator(
                 global_settings.PHONE_NUMBER_REGEX,
-                "Invalid format! Format: +(1-3) (9-13)"
+                "Invalid format! Format: +(1-3) (9-13)",
             )
         ],
         help_text="Format: +(1-3) (9-13)",

@@ -6,8 +6,14 @@ from django.shortcuts import render, redirect
 from django.views.generic import *
 
 import hospital_manage.settings as global_settings
-from staffs.forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, ProfileCreateForm, StaffUserUpdateForm, \
-    StaffProfileUpdateForm
+from staffs.forms import (
+    UserRegisterForm,
+    UserUpdateForm,
+    ProfileUpdateForm,
+    ProfileCreateForm,
+    StaffUserUpdateForm,
+    StaffProfileUpdateForm,
+)
 from staffs.models import Profile
 
 staffs = "staffs"
@@ -23,7 +29,8 @@ def register(request):
             form.user = user
             form.save()
             messages.success(
-                request, "Account created successfully! You will be able to login once activated by admins!"
+                request,
+                "Account created successfully! You will be able to login once activated by admins!",
             )
             return redirect("login")
     else:
@@ -68,11 +75,19 @@ class StaffList(LoginRequiredMixin, ListView):
     def get_queryset(self):
         query = self.request.GET.get("search")
         if query:
-            result = Profile.objects.filter(
-                Q(pk=query)
-                | Q(user__first_name__icontains=query)
-                | Q(user__last_name__icontains=query)
-            )
+            if str(query).isnumeric():
+                result = Profile.objects.filter(
+                    Q(pk=query)
+                    | Q(user__first_name__icontains=query)
+                    | Q(user__last_name__icontains=query)
+                    | Q(user__username__icontains=query)
+                )
+            else:
+                result = Profile.objects.filter(
+                    Q(user__first_name__icontains=query)
+                    | Q(user__last_name__icontains=query)
+                    | Q(user__username__icontains=query)
+                )
         else:
             result = Profile.objects.all()
         return result.order_by("user__first_name", "user__last_name")
@@ -94,9 +109,7 @@ def staff_edit(request, pk):
     profile = Profile.objects.get(pk=pk)
     if request.method == "POST":
         u_form = StaffUserUpdateForm(request.POST, instance=profile.user)
-        p_form = StaffProfileUpdateForm(
-            request.POST, request.FILES, instance=profile
-        )
+        p_form = StaffProfileUpdateForm(request.POST, request.FILES, instance=profile)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()

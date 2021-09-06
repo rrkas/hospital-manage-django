@@ -56,7 +56,10 @@ class PatientList(LoginRequiredMixin, ListView):
     def get_queryset(self):
         query = self.request.GET.get("search")
         if query:
-            result = Patient.objects.filter(Q(pk=query) | Q(name__icontains=query))
+            if str(query).isnumeric():
+                result = Patient.objects.filter(Q(pk=query) | Q(name__icontains=query))
+            else:
+                result = Patient.objects.filter(Q(name__icontains=query))
         else:
             result = Patient.objects.all()
         return result.order_by("id")
@@ -75,4 +78,4 @@ def patient_archive(request, pk):
         patient.date_archived = timezone.now()
         patient.save()
         messages.warning(request, f"Patient {pk} archived!")
-    return redirect('patient-detail', pk=pk)
+    return redirect("patient-detail", pk=pk)

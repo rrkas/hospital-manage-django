@@ -2,6 +2,7 @@
 venv
 media/profile_pics
 media/patient_pics
+media/doctor_pics
 
 .env
 *.pyc

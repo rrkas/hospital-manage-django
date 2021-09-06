@@ -1,0 +1,48 @@
+{% extends 'common/layout.html' %}
+{% load crispy_forms_tags %}
+{% block breadnav %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'org-home' %}">Organization</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'department-home' %}">Departments</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ department.pk }}</li>
+    </ol>
+</nav>
+{% endblock%}
+
+{% block content %}
+<div class="content-section mb-5">
+    <div class="ml-3 mb-3 h3">{{ department.name }} ({{ department.abbr }})</div>
+    <table class="mt-2 table table-striped">
+        <tr>
+            <td>ID</td>
+            <td><b>{{ department.pk }}</b></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td><b>{{ department.name }}</b></td>
+        </tr>
+        <tr>
+            <td>Abbreviation</td>
+            <td><b>{{ department.abbr }}</b></td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td>{{ department.description }}</td>
+        </tr>
+        <tr>
+            <td>Doctors</td>
+            <td>{{ department.doctor_count }}</td>
+        </tr>
+    </table>
+    <div>
+        {% if not department.archived %}
+        <form method="post" action="{% url 'department-archive' department.pk %}">
+            {% csrf_token %}
+            <a class="btn btn-outline-info" href="{% url 'department-update' department.pk %}">Update</a>
+            <button class="btn btn-danger" onclick="return confirm('Are you sure?');">Archive</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

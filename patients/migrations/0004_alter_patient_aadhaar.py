@@ -7,13 +7,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('patients', '0003_alter_patient_image'),
+        ("patients", "0003_alter_patient_image"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='patient',
-            name='aadhaar',
-            field=models.CharField(blank=True, help_text='Aadhaar Card Number Ex: xxxx xxxx xxxx', max_length=15, unique=True, validators=[django.core.validators.RegexValidator('[0-9]{4} [0-9]{4} [0-9]{4}', 'Invalid aadhaar number!')]),
+            model_name="patient",
+            name="aadhaar",
+            field=models.CharField(
+                blank=True,
+                help_text="Aadhaar Card Number Ex: xxxx xxxx xxxx",
+                max_length=15,
+                unique=True,
+                validators=[
+                    django.core.validators.RegexValidator(
+                        "[0-9]{4} [0-9]{4} [0-9]{4}", "Invalid aadhaar number!"
+                    )
+                ],
+            ),
         ),
     ]

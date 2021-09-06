@@ -13,7 +13,7 @@ class Profile(models.Model):
         validators=[
             RegexValidator(
                 global_settings.PHONE_NUMBER_REGEX,
-                "Invalid format! Format: +(1-3) (9-13)"
+                "Invalid format! Format: +(1-3) (9-13)",
             )
         ],
         help_text="Format: +(1-3) (9-13)",

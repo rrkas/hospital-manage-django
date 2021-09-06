@@ -17,22 +17,87 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Patient',
+            name="Patient",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image', models.ImageField(default='patient.jpg', null=True, upload_to='')),
-                ('name', models.CharField(max_length=100)),
-                ('dob', models.DateField(verbose_name='Date of Birth (DOB)')),
-                ('gender', models.CharField(choices=[('male', 'Male'), ('female', 'Female'), ('other', 'Other')], max_length=8)),
-                ('mobile', models.CharField(help_text='Format: +(1-3) (9-13)', max_length=20, unique=True, validators=[django.core.validators.RegexValidator('\\+(9[976]\\d|8[987530]\\d|6[987]\\d|5[90]\\d|42\\d|3[875]\\d|2[98654321]\\d|9[8543210]|8[6421]\\\n|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1) \\d{1,14}$', 'Invalid format! Format: +(1-3) (9-13)')])),
-                ('email', models.EmailField(max_length=254, unique=True)),
-                ('address', models.TextField()),
-                ('aadhaar', models.CharField(help_text='Aadhaar Card Number Ex: xxxx xxxx xxxx', max_length=15, unique=True, validators=[django.core.validators.RegexValidator('[0-9]{4} [0-9]{4} [0-9]{4}', 'Invalid aadhaar number!')])),
-                ('date_created', models.DateTimeField(default=django.utils.timezone.now)),
-                ('archived', models.BooleanField(default=False)),
-                ('date_archived', models.DateTimeField(null=True)),
-                ('archived_by', models.ForeignKey(null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='archived_by', to=settings.AUTH_USER_MODEL)),
-                ('created_by', models.ForeignKey(null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='created_by', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "image",
+                    models.ImageField(default="patient.jpg", null=True, upload_to=""),
+                ),
+                ("name", models.CharField(max_length=100)),
+                ("dob", models.DateField(verbose_name="Date of Birth (DOB)")),
+                (
+                    "gender",
+                    models.CharField(
+                        choices=[
+                            ("male", "Male"),
+                            ("female", "Female"),
+                            ("other", "Other"),
+                        ],
+                        max_length=8,
+                    ),
+                ),
+                (
+                    "mobile",
+                    models.CharField(
+                        help_text="Format: +(1-3) (9-13)",
+                        max_length=20,
+                        unique=True,
+                        validators=[
+                            django.core.validators.RegexValidator(
+                                "\\+(9[976]\\d|8[987530]\\d|6[987]\\d|5[90]\\d|42\\d|3[875]\\d|2[98654321]\\d|9[8543210]|8[6421]\\\n|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1) \\d{1,14}$",
+                                "Invalid format! Format: +(1-3) (9-13)",
+                            )
+                        ],
+                    ),
+                ),
+                ("email", models.EmailField(max_length=254, unique=True)),
+                ("address", models.TextField()),
+                (
+                    "aadhaar",
+                    models.CharField(
+                        help_text="Aadhaar Card Number Ex: xxxx xxxx xxxx",
+                        max_length=15,
+                        unique=True,
+                        validators=[
+                            django.core.validators.RegexValidator(
+                                "[0-9]{4} [0-9]{4} [0-9]{4}", "Invalid aadhaar number!"
+                            )
+                        ],
+                    ),
+                ),
+                (
+                    "date_created",
+                    models.DateTimeField(default=django.utils.timezone.now),
+                ),
+                ("archived", models.BooleanField(default=False)),
+                ("date_archived", models.DateTimeField(null=True)),
+                (
+                    "archived_by",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        related_name="archived_by",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "created_by",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        related_name="created_by",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

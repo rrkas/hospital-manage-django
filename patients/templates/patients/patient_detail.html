@@ -5,7 +5,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'org-home' %}">Organization</a></li>
         <li class="breadcrumb-item"><a href="{% url 'patient-home' %}">Patients</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{ patient.id }}</li>
+        <li class="breadcrumb-item active" aria-current="page">{{ patient.pk }}</li>
     </ol>
 </nav>
 {% endblock%}

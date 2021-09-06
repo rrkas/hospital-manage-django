@@ -9,18 +9,28 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('patients', '0006_alter_patient_dob'),
+        ("patients", "0006_alter_patient_dob"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='patient',
-            name='archived_by',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='patient_archived_by', to=settings.AUTH_USER_MODEL),
+            model_name="patient",
+            name="archived_by",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="patient_archived_by",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterField(
-            model_name='patient',
-            name='created_by',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='patient_created_by', to=settings.AUTH_USER_MODEL),
+            model_name="patient",
+            name="created_by",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.DO_NOTHING,
+                related_name="patient_created_by",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

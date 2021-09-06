@@ -7,13 +7,16 @@ import patients.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('patients', '0005_alter_patient_aadhaar'),
+        ("patients", "0005_alter_patient_aadhaar"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='patient',
-            name='dob',
-            field=models.DateField(validators=[patients.models.dob_validator], verbose_name='Date of Birth (DOB)'),
+            model_name="patient",
+            name="dob",
+            field=models.DateField(
+                validators=[patients.models.dob_validator],
+                verbose_name="Date of Birth (DOB)",
+            ),
         ),
     ]
