@@ -57,7 +57,7 @@ class Patient(models.Model):
     created_by = models.ForeignKey(
         conf_settings.AUTH_USER_MODEL,
         on_delete=models.DO_NOTHING,
-        related_name="created_by",
+        related_name="patient_created_by",
         null=True,
     )
     archived = models.BooleanField(default=False)
@@ -65,7 +65,7 @@ class Patient(models.Model):
     archived_by = models.ForeignKey(
         conf_settings.AUTH_USER_MODEL,
         on_delete=models.DO_NOTHING,
-        related_name="archived_by",
+        related_name="patient_archived_by",
         null=True,
     )
 

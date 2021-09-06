@@ -1,14 +1,14 @@
 from django import forms
 
-from patients.models import Patient
+from .models import Doctor
 
 
-class CreatePatientForm(forms.ModelForm):
+class CreateDoctorForm(forms.ModelForm):
     class Meta:
-        model = Patient
+        model = Doctor
         fields = (
             "image", "name", "dob",
-            "mobile", "email", "gender",
+            "mobile", "email", "gender", "department",
             "aadhaar", "address",
         )
         widgets = {
@@ -24,9 +24,9 @@ class CreatePatientForm(forms.ModelForm):
         self.fields['aadhaar'].required = False
 
 
-class UpdatePatientForm(forms.ModelForm):
+class UpdateDoctorForm(forms.ModelForm):
     class Meta:
-        model = Patient
+        model = Doctor
         fields = (
             "image", "name", "dob",
             "mobile", "email", "gender",

@@ -11,11 +11,6 @@ from .forms import CreatePatientForm, UpdatePatientForm
 from .models import Patient
 
 
-@login_required
-def index(request):
-    return render(request, "patients/home.html")
-
-
 class PatientCreate(LoginRequiredMixin, CreateView):
     model = Patient
     context_object_name = "patient"

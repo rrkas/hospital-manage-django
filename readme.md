@@ -4,16 +4,22 @@
 1. organization
    - managing users, patients, doctors
 2. users (staffs)
-   - register users
-   - login users
-   - staff list screen
-   - staff detail screen
-3. patients
-   - Create patient
-   - View patient
-4. doctors
-5. equipments
-6. news_updates
+   - register
+   - login
+3. staffs (created when users register)
+   - list
+   - view
+   - update
+   - archive
+4. patients
+   - Create
+   - list
+   - View
+   - update
+   - archive
+5. doctors
+6. equipments
+7. news_updates
 
 ## Setup
 Environment:
