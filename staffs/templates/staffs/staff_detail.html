@@ -42,6 +42,9 @@
         <tr><td>Active</td><td>{{ staff.user.is_active }}</td></tr>
         <tr><td>Last Login</td><td>{{ staff.user.last_login }}</td></tr>
     </table>
+    <div>
+        <a class="btn btn-outline-info" href="{% url 'staff-update' staff.pk %}">Update</a>
+    </div>
 </div>
 
 {% endblock %}

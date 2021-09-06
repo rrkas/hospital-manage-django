@@ -6,7 +6,8 @@ from django.shortcuts import render, redirect
 from django.views.generic import *
 
 import hospital_manage.settings as global_settings
-from staffs.forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, ProfileCreateForm
+from staffs.forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, ProfileCreateForm, StaffUserUpdateForm, \
+    StaffProfileUpdateForm
 from staffs.models import Profile
 
 staffs = "staffs"
@@ -21,7 +22,9 @@ def register(request):
             form = p_form.instance
             form.user = user
             form.save()
-            messages.success(request, "Account created successfully! You will be able to login !")
+            messages.success(
+                request, "Account created successfully! You will be able to login once activated by admins!"
+            )
             return redirect("login")
     else:
         u_form = UserRegisterForm()
@@ -55,8 +58,9 @@ def profile(request):
     return render(request, f"{staffs}/profile.html", context)
 
 
-class ProfileList(LoginRequiredMixin, ListView):
+class StaffList(LoginRequiredMixin, ListView):
     model = Profile
+    template_name = "staffs/staff_list.html"
     context_object_name = "staffs"
     ordering = ["first_name", "last_name"]
     paginate_by = global_settings.PAGINATION_COUNT
@@ -65,7 +69,8 @@ class ProfileList(LoginRequiredMixin, ListView):
         query = self.request.GET.get("search")
         if query:
             result = Profile.objects.filter(
-                Q(user__first_name__icontains=query)
+                Q(pk=query)
+                | Q(user__first_name__icontains=query)
                 | Q(user__last_name__icontains=query)
             )
         else:
@@ -78,6 +83,31 @@ class ProfileList(LoginRequiredMixin, ListView):
         return context
 
 
-class ProfileDetail(LoginRequiredMixin, DetailView):
+class StaffDetail(LoginRequiredMixin, DetailView):
     model = Profile
+    template_name = "staffs/staff_detail.html"
     context_object_name = "staff"
+
+
+@login_required
+def staff_edit(request, pk):
+    profile = Profile.objects.get(pk=pk)
+    if request.method == "POST":
+        u_form = StaffUserUpdateForm(request.POST, instance=profile.user)
+        p_form = StaffProfileUpdateForm(
+            request.POST, request.FILES, instance=profile
+        )
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, "Account updated successfully!")
+            return redirect("staff-detail", pk=pk)
+    else:
+        u_form = StaffUserUpdateForm(instance=profile.user)
+        p_form = StaffProfileUpdateForm(instance=profile)
+    context = {
+        "u_form": u_form,
+        "p_form": p_form,
+        "pk": pk,
+    }
+    return render(request, f"{staffs}/staff_form.html", context)

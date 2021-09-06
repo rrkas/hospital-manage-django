@@ -1,10 +1,10 @@
 {% extends "common/layout.html" %}
 {% block breadnav %}
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{% url 'org-home' %}">Organization</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Patients</li>
-  </ol>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'org-home' %}">Organization</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Patients</li>
+    </ol>
 </nav>
 {% endblock%}
 
@@ -14,13 +14,17 @@
 <form class="form" method="GET" action="" style="display: flex;">
     <input class="form-control" type="search" name="search" style="flex: 1;"
            value="{% if search_value %}{{ search_value }}{% endif %}">
+    {% if search_value %}
+    <a class="btn btn-secondary ml-2" href="{% url 'patient-home' %}">Clear</a>
+    {% else %}
     <button class="btn btn-secondary ml-2" type="submit">Search</button>
+    {% endif %}
     <a class="btn btn-success ml-2" style="color: white;" href="{% url 'patient-create' %}">New</a>
 </form>
 
 
-<table class="table table-striped">
-    <thead>
+<table class="table">
+    <thead class="thead-light">
     <tr>
         <th>ID</th>
         <th>Name</th>
@@ -28,7 +32,7 @@
     </tr>
     </thead>
     {% for patient in patients %}
-    <tr>
+    <tr style="{% if patient.archived %}background-color: #ffcccb;{% endif %}">
         <td><a href="{% url 'patient-detail' patient.id %}">{{ patient.id }}</a></td>
         <td><a href="{% url 'patient-detail' patient.id %}">{{ patient.name }}</a></td>
         <td>{{ patient.mobile }}</td>

@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from .models import Profile
 
 
+# new creation
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
 
@@ -29,6 +30,23 @@ class UserRegisterForm(UserCreationForm):
         ]
 
 
+class ProfileCreateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["image", "mobile"]
+
+    def __init__(self, *args, **kwargs):
+        unrequired_fields = ["image"]
+        super().__init__(*args, **kwargs)
+        for field in unrequired_fields:
+            self.fields[field].required = False
+
+
+
+
+# -------------------------------------------------
+
+# self update
 class UserUpdateForm(forms.ModelForm):
     disabled_fields = ("username", "email")
     email = forms.EmailField()
@@ -49,13 +67,24 @@ class ProfileUpdateForm(forms.ModelForm):
         fields = ["image", "mobile"]
 
 
-class ProfileCreateForm(forms.ModelForm):
+# -------------------------------------------------
+
+# update by admin
+class StaffProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ["image", "mobile"]
 
+
+class StaffUserUpdateForm(forms.ModelForm):
+    disabled_fields = ("username", "email")
+    email = forms.EmailField()
+
     def __init__(self, *args, **kwargs):
-        unrequired_fields = ["image"]
         super().__init__(*args, **kwargs)
-        for field in unrequired_fields:
-            self.fields[field].required = False
+        for field in self.disabled_fields:
+            self.fields[field].disabled = True
+
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "username", "email", "is_active"]

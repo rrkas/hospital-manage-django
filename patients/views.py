@@ -60,11 +60,10 @@ class PatientList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         query = self.request.GET.get("search")
-        active = Q(archived=False)
         if query:
-            result = Patient.objects.filter(active & Q(name__icontains=query))
+            result = Patient.objects.filter(Q(pk=query) | Q(name__icontains=query))
         else:
-            result = Patient.objects.filter(active)
+            result = Patient.objects.all()
         return result.order_by("id")
 
     def get_context_data(self, *, object_list=None, **kwargs):

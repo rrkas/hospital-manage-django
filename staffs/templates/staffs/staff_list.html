@@ -14,12 +14,16 @@
 <form class="form" method="GET" action="" style="display: flex;">
     <input class="form-control" type="search" name="search" style="flex: 1;"
            value="{% if search_value %}{{ search_value }}{% endif %}">
+    {% if search_value %}
+    <a class="btn btn-secondary ml-2" href="{% url 'staff-home' %}">Clear</a>
+    {% else %}
     <button class="btn btn-secondary ml-2" type="submit">Search</button>
+    {% endif %}
 </form>
 
 
-<table class="table table-striped">
-    <thead>
+<table class="table">
+    <thead class="thead-light">
     <tr>
         <th>ID</th>
         <th>Name</th>
@@ -28,7 +32,7 @@
     </tr>
     </thead>
     {% for staff in staffs %}
-    <tr>
+    <tr style="{% if not staff.user.is_active %}background-color: #ffcccb;{% endif %}">
         <td><a href="{% url 'staff-detail' staff.id %}">{{ staff.id }}</a></td>
         <td>
             <a href="{% url 'staff-detail' staff.id %}">
