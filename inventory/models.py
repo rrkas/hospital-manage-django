@@ -42,12 +42,15 @@ class Manufacturer(models.Model):
     def get_absolute_url(self):
         return reverse("manufacturer-detail", kwargs={"pk": self.pk})
 
+    def __str__(self):
+        return self.name
+
 
 class Equipment(models.Model):
     name = models.CharField(max_length=120)
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.DO_NOTHING)
     model = models.CharField(max_length=120)
-    price = models.FloatField()
+    price = models.DecimalField(max_digits=20, decimal_places=2)
     quantity = models.IntegerField()
 
     def get_absolute_url(self):

@@ -2,25 +2,26 @@
 {% block breadnav %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{% url 'org-home' %}">Organization</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Doctors</li>
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'inventory-home' %}">Inventory</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Manufacturers</li>
     </ol>
 </nav>
 {% endblock%}
 
 {% block content %}
 
-<h2>Doctors</h2>
+<h2>Manufacturers</h2>
 <form class="form" method="GET" action="" style="display: flex;">
     <input class="form-control" type="search" name="search" style="flex: 1;"
            placeholder="{% if not search_value %}Enter id or name to search{% endif %}"
            value="{% if search_value %}{{ search_value }}{% endif %}">
     {% if search_value %}
-    <a class="btn btn-secondary ml-2" href="{% url 'doctor-home' %}">Clear</a>
+    <a class="btn btn-secondary ml-2" href="{% url 'manufacturer-home' %}">Clear</a>
     {% else %}
     <button class="btn btn-secondary ml-2" type="submit">Search</button>
     {% endif %}
-    <a class="btn btn-success ml-2" style="color: white;" href="{% url 'doctor-create' %}">New</a>
+    <a class="btn btn-success ml-2" style="color: white;" href="{% url 'manufacturer-create' %}">New</a>
 </form>
 
 
@@ -28,15 +29,15 @@
     <thead class="thead-light">
     <tr>
         <th>Name</th>
-        <th>Department</th>
-        <th>Mobile</th>
+        <th>Website</th>
+        <th>Salesman Contact</th>
     </tr>
     </thead>
-    {% for doctor in doctors %}
-    <tr style="{% if doctor.archived %}background-color: #ffcccb;{% endif %}">
-        <td><a href="{% url 'doctor-detail' doctor.pk %}">{{ doctor.name }}</a></td>
-        <td>{{ doctor.department.name }} ({{ doctor.department.abbr }})</td>
-        <td>{{ doctor.mobile }}</td>
+    {% for manufacturer in manufacturers %}
+    <tr style="{% if manufacturer.archived %}background-color: #ffcccb;{% endif %}">
+        <td><a href="{% url 'manufacturer-detail' manufacturer.pk %}">{{ manufacturer.name }}</a></td>
+        <td>{{ manufacturer.website }}</td>
+        <td>{{ manufacturer.salesman_contact }}</td>
     </tr>
     {% endfor %}
 </table>

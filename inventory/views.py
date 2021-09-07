@@ -11,16 +11,15 @@ from .forms import (
     CreateEquipmentForm,
     UpdateEquipmentForm,
 )
-from .models import Manufacturer, Equipment
+from .models import Manufacturer, Equipment, InventoryItem
 
 
 @login_required
 def home(request):
     context = {
         "items": [
-            # InventoryItem("Staffs", "staff-home", Profile.objects.all().count()),
-            # InventoryItem("Patients", "patient-home", Patient.objects.all().count()),
-            # InventoryItem("Equipments", "equipment-home", Equipment.objects.all().count()),
+            InventoryItem("Manufacturers", "manufacturer-home", Manufacturer.objects.all().count()),
+            InventoryItem("Equipments", "equipment-home", Equipment.objects.all().count()),
         ],
     }
     return render(request, f"inventory/home.html", context=context)
@@ -48,7 +47,7 @@ class ManufacturerDetail(LoginRequiredMixin, DetailView):
 
 
 class ManufacturerUpdate(LoginRequiredMixin, UpdateView):
-    template_name = "manufacturers/manufacturers_form.html"
+    template_name = "manufacturers/manufacturer_form.html"
     model = Manufacturer
     context_object_name = "manufacturer"
     form_class = UpdateManufacturerForm
@@ -91,6 +90,7 @@ class ManufacturerList(LoginRequiredMixin, ListView):
 class EquipmentCreate(LoginRequiredMixin, CreateView):
     model = Equipment
     context_object_name = "equipment"
+    template_name = "equipments/equipment_form.html"
     form_class = CreateEquipmentForm
 
     def get_context_data(self, **kwargs):
@@ -109,6 +109,7 @@ class EquipmentCreate(LoginRequiredMixin, CreateView):
 
 class EquipmentDetail(LoginRequiredMixin, DetailView):
     model = Equipment
+    template_name = "equipments/equipment_detail.html"
     context_object_name = "equipment"
 
 
@@ -127,6 +128,7 @@ class EquipmentUpdate(LoginRequiredMixin, UpdateView):
 class EquipmentList(LoginRequiredMixin, ListView):
     model = Equipment
     context_object_name = "equipments"
+    template_name = "equipments/equipment_list.html"
     ordering = ["name"]
     paginate_by = global_settings.PAGINATION_COUNT
 

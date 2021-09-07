@@ -3,6 +3,7 @@
 {% block breadnav %}
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
         <li class="breadcrumb-item"><a href="{% url 'org-home' %}">Organization</a></li>
         <li class="breadcrumb-item"><a href="{% url 'doctor-home' %}">Doctors</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{ doctor.pk }}</li>

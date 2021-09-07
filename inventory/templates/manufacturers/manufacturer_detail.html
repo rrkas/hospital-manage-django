@@ -1,0 +1,43 @@
+{% extends 'common/layout.html' %}
+{% load crispy_forms_tags %}
+{% block breadnav %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'inventory-home' %}">Inventory</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'manufacturer-home' %}">Manufacturers</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ manufacturer.pk }}</li>
+    </ol>
+</nav>
+{% endblock%}
+
+{% block content %}
+<div class="content-section mb-5">
+    <h3 class="ml-3 mb-3 h3">{{ manufacturer.name }}</h3>
+    <table class="mt-2 table table-striped">
+        <tr>
+            <td>ID</td>
+            <td><b>{{ manufacturer.pk }}</b></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td><b>{{ manufacturer.name }}</b></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td class="pre">{{ manufacturer.address }}</td>
+        </tr>
+        <tr>
+            <td>Company Contact</td>
+            <td><a href="tel:{{ manufacturer.company_contact }}">{{ manufacturer.company_contact }}</a></td>
+        </tr>
+        <tr>
+            <td>Salesman contact</td>
+            <td><a href="tel:{{ manufacturer.company_contact }}">{{ manufacturer.salesman_contact }}</a></td>
+        </tr>
+    </table>
+    <div>
+        <a class="btn btn-outline-info" href="{% url 'manufacturer-update' manufacturer.pk %}">Update</a>
+    </div>
+</div>
+{% endblock %}

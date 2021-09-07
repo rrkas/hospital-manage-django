@@ -1,11 +1,12 @@
 {% extends "common/layout.html" %}
 {% block breadnav %}
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{% url 'org-home' %}">Organization</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'staff-home' %}">Staffs</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{ staff.pk }}</li>
-  </ol>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'org-home' %}">Organization</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'staff-home' %}">Staffs</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ staff.pk }}</li>
+    </ol>
 </nav>
 {% endblock%}
 
@@ -17,10 +18,22 @@
         <span class="ml-3 mb-3 h3">{{ staff.user.first_name }} {{ staff.user.last_name }}</span>
     </span>
     <table class="mt-2 table table-borderless">
-        <tr><td>ID</td><td><b>{{ staff.pk }}</b></td></tr>
-        <tr><td>First Name</td><td><b>{{ staff.user.first_name }}</b></td></tr>
-        <tr><td>Last Name</td><td><b>{{ staff.user.last_name }}</b></td></tr>
-        <tr><td>Username</td><td>{{ staff.user.username }}</td></tr>
+        <tr>
+            <td>ID</td>
+            <td><b>{{ staff.pk }}</b></td>
+        </tr>
+        <tr>
+            <td>First Name</td>
+            <td><b>{{ staff.user.first_name }}</b></td>
+        </tr>
+        <tr>
+            <td>Last Name</td>
+            <td><b>{{ staff.user.last_name }}</b></td>
+        </tr>
+        <tr>
+            <td>Username</td>
+            <td>{{ staff.user.username }}</td>
+        </tr>
         <tr>
             <td>Email</td>
             <td>
@@ -37,10 +50,22 @@
                 </a>
             </td>
         </tr>
-        <tr><td>Role</td><td>{{ staff.get_role_display }}</td></tr>
-        <tr><td>Date Joined</td><td>{{ staff.user.date_joined }}</td></tr>
-        <tr><td>Active</td><td>{{ staff.user.is_active }}</td></tr>
-        <tr><td>Last Login</td><td>{{ staff.user.last_login }}</td></tr>
+        <tr>
+            <td>Role</td>
+            <td>{{ staff.get_role_display }}</td>
+        </tr>
+        <tr>
+            <td>Date Joined</td>
+            <td>{{ staff.user.date_joined }}</td>
+        </tr>
+        <tr>
+            <td>Active</td>
+            <td>{{ staff.user.is_active }}</td>
+        </tr>
+        <tr>
+            <td>Last Login</td>
+            <td>{{ staff.user.last_login }}</td>
+        </tr>
     </table>
     <div>
         <a class="btn btn-outline-info" href="{% url 'staff-update' staff.pk %}">Update</a>

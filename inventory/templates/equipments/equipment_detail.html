@@ -1,0 +1,47 @@
+{% extends 'common/layout.html' %}
+{% load crispy_forms_tags %}
+{% block breadnav %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'inventory-home' %}">Inventory</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'equipment-home' %}">Equipments</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ equipment.pk }}</li>
+    </ol>
+</nav>
+{% endblock%}
+
+{% block content %}
+<div class="content-section mb-5">
+    <h3 class="ml-3 mb-3 h3">{{ equipment.name }}</h3>
+    <table class="mt-2 table table-striped">
+        <tr>
+            <td>ID</td>
+            <td><b>{{ equipment.pk }}</b></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td><b>{{ equipment.name }}</b></td>
+        </tr>
+        <tr>
+            <td>Manufacturer</td>
+            <td><a href="{% url 'manufacturer-detail' equipment.manufacturer.pk %}">{{ equipment.manufacturer }}</a></td>
+        </tr>
+        <tr>
+            <td>Model</td>
+            <td>{{ equipment.model }}</td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td>{{ equipment.price }}</td>
+        </tr>
+        <tr>
+            <td>Quantity</td>
+            <td>{{ equipment.quantity }}</td>
+        </tr>
+    </table>
+    <div>
+        <a class="btn btn-outline-info" href="{% url 'equipment-update' equipment.pk %}">Update</a>
+    </div>
+</div>
+{% endblock %}
