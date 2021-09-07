@@ -1,4 +1,5 @@
 import os
+import secrets
 from pathlib import Path
 
 import django_heroku
@@ -13,11 +14,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "c4f4ee7338990f87cb05db5fc1ae55c9c411b0ac15384738"  # secrets.token_hex(24)
+SECRET_KEY = secrets.token_hex(24)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+ALLOW_USERS_LOGIN = True
 DATE_INPUT_FORMATS = [
     "%d-%m-%Y",
 ]
