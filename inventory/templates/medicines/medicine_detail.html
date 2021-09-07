@@ -1,0 +1,59 @@
+{% extends 'common/layout.html' %}
+{% load crispy_forms_tags %}
+{% block breadnav %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'inventory-home' %}">Inventory</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'medicine-home' %}">Medicines</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ medicine.pk }}</li>
+    </ol>
+</nav>
+{% endblock%}
+
+{% block content %}
+<div class="content-section">
+    <h3 class="ml-3 mb-3 h3">{{ medicine.name }}</h3>
+    <table class="mt-2 table table-striped">
+        <tr>
+            <td>ID</td>
+            <td><b>{{ medicine.pk }}</b></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td><b>{{ medicine.name }}</b></td>
+        </tr>
+        <tr>
+            <td>Batch</td>
+            <td>{{ medicine.batch }}</td>
+        </tr>
+        <tr>
+            <td>Manufacturer</td>
+            <td><a href="{% url 'manufacturer-detail' medicine.manufacturer.pk %}">{{ medicine.manufacturer }}</a></td>
+        </tr>
+        <tr>
+            <td>Price (per piece)</td>
+            <td>{{ medicine.price }}</td>
+        </tr>
+        <tr>
+            <td>Quantity</td>
+            <td>{{ medicine.quantity }}</td>
+        </tr>
+        <tr>
+            <td>MFG Date</td>
+            <td>{{ medicine.mfg_date }}</td>
+        </tr>
+        <tr>
+            <td>Expiry Date</td>
+            <td>{{ medicine.expiry_date }}</td>
+        </tr>
+        <tr>
+            <td>Expired</td>
+            <td>{{ medicine.is_expired }}</td>
+        </tr>
+    </table>
+    <div>
+        <a class="btn btn-outline-info" href="{% url 'medicine-update' medicine.pk %}">Update</a>
+    </div>
+</div>
+{% endblock %}

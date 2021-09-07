@@ -43,3 +43,19 @@ urlpatterns += [
         name="equipment-update",
     ),
 ]
+
+medicines = "medicines/"
+urlpatterns += [
+    path(medicines + "", views.MedicineList.as_view(), name="medicine-home"),
+    path(medicines + "new/", views.MedicineCreate.as_view(), name="medicine-create"),
+    path(
+        medicines + "<int:pk>/",
+        views.MedicineDetail.as_view(),
+        name="medicine-detail",
+    ),
+    path(
+        medicines + "<int:pk>/update",
+        views.MedicineUpdate.as_view(),
+        name="medicine-update",
+    ),
+]

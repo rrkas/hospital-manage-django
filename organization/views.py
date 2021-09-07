@@ -91,20 +91,20 @@ class StaffList(LoginRequiredMixin, ListView):
         query = self.request.GET.get("search")
         if query:
             if str(query).isnumeric():
-                result = Profile.objects.filter(
+                result = self.model.objects.filter(
                     Q(pk=query)
                     | Q(user__first_name__icontains=query)
                     | Q(user__last_name__icontains=query)
                     | Q(user__username__icontains=query)
                 )
             else:
-                result = Profile.objects.filter(
+                result = self.model.objects.filter(
                     Q(user__first_name__icontains=query)
                     | Q(user__last_name__icontains=query)
                     | Q(user__username__icontains=query)
                 )
         else:
-            result = Profile.objects.all()
+            result = self.model.objects.all()
         return result.order_by("user__first_name", "user__last_name")
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -195,11 +195,11 @@ class DoctorList(LoginRequiredMixin, ListView):
         query = self.request.GET.get("search")
         if query:
             if str(query).isnumeric():
-                result = Doctor.objects.filter(Q(pk=query) | Q(name__icontains=query))
+                result = self.model.objects.filter(Q(pk=query) | Q(name__icontains=query))
             else:
-                result = Doctor.objects.filter(Q(name__icontains=query))
+                result = self.model.objects.filter(Q(name__icontains=query))
         else:
-            result = Doctor.objects.all()
+            result = self.model.objects.all()
         return result.order_by("name")
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -272,15 +272,15 @@ class DepartmentList(LoginRequiredMixin, ListView):
         query = self.request.GET.get("search")
         if query:
             if str(query).isnumeric():
-                result = Department.objects.filter(
+                result = self.model.objects.filter(
                     Q(pk=query) | Q(name__icontains=query) | Q(abbr__icontains=query)
                 )
             else:
-                result = Department.objects.filter(
+                result = self.model.objects.filter(
                     Q(name__icontains=query) | Q(abbr__icontains=query)
                 )
         else:
-            result = Department.objects.all()
+            result = self.model.objects.all()
         return result.order_by("name")
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -353,11 +353,11 @@ class PatientList(LoginRequiredMixin, ListView):
         query = self.request.GET.get("search")
         if query:
             if str(query).isnumeric():
-                result = Patient.objects.filter(Q(pk=query) | Q(name__icontains=query))
+                result = self.model.objects.filter(Q(pk=query) | Q(name__icontains=query))
             else:
-                result = Patient.objects.filter(Q(name__icontains=query))
+                result = self.model.objects.filter(Q(name__icontains=query))
         else:
-            result = Patient.objects.all()
+            result = self.model.objects.all()
         return result.order_by("name")
 
     def get_context_data(self, *, object_list=None, **kwargs):

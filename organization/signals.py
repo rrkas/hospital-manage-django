@@ -7,5 +7,5 @@ from django.dispatch import receiver
 def set_new_user_inactive(sender, instance, **kwargs):
     print("Inactivating user!")
     if instance._state.adding:
-        # instance.is_active = False
+        instance.is_active = False
         print("user inactivated!")

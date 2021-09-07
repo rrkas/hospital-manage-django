@@ -1,6 +1,7 @@
 from django import forms
+from django.forms import DateInput
 
-from .models import Manufacturer, Equipment
+from .models import Manufacturer, Equipment, Medicine
 
 
 # ================ Manufacturers ====================
@@ -45,3 +46,26 @@ class UpdateEquipmentForm(forms.ModelForm):
     class Meta:
         model = Equipment
         exclude = []
+
+
+# ================ Medicines ====================
+
+
+class CreateMedicineForm(forms.ModelForm):
+    class Meta:
+        model = Medicine
+        exclude = []
+        widgets = {
+            "mfg_date": DateInput(attrs={"type": "date"}),
+            "expiry_date": DateInput(attrs={"type": "date"}),
+        }
+
+
+class UpdateMedicineForm(forms.ModelForm):
+    class Meta:
+        model = Medicine
+        exclude = []
+        widgets = {
+            "mfg_date": DateInput(attrs={"type": "date"}),
+            "expiry_date": DateInput(attrs={"type": "date"}),
+        }
