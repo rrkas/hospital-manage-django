@@ -50,7 +50,7 @@ class DoctorUpdate(LoginRequiredMixin, UpdateView):
 class DoctorList(LoginRequiredMixin, ListView):
     model = Doctor
     context_object_name = "doctors"
-    ordering = ["id"]
+    ordering = ["name"]
     paginate_by = global_settings.PAGINATION_COUNT
 
     def get_queryset(self):
@@ -62,7 +62,7 @@ class DoctorList(LoginRequiredMixin, ListView):
                 result = Doctor.objects.filter(Q(name__icontains=query))
         else:
             result = Doctor.objects.all()
-        return result.order_by("id")
+        return result.order_by("name")
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)

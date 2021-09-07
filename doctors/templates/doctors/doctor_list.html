@@ -35,7 +35,7 @@
     {% for doctor in doctors %}
     <tr style="{% if doctor.archived %}background-color: #ffcccb;{% endif %}">
         <td><a href="{% url 'doctor-detail' doctor.pk %}">{{ doctor.name }}</a></td>
-        <td><a href="{% url 'department-detail' doctor.department.pk %}">{{ doctor.department.name }} ({{ doctor.department.abbr }})</a></td>
+        <td>{{ doctor.department.name }} ({{ doctor.department.abbr }})</td>
         <td>{{ doctor.mobile }}</td>
     </tr>
     {% endfor %}

@@ -13,7 +13,7 @@
 <h2>Departments</h2>
 <form class="form" method="GET" action="" style="display: flex;">
     <input class="form-control" type="search" name="search" style="flex: 1;"
-           placeholder="{% if not search_value %}Enter id or name to search{% endif %}"
+           placeholder="{% if not search_value %}Enter id or name or abbr to search{% endif %}"
            value="{% if search_value %}{{ search_value }}{% endif %}">
     {% if search_value %}
     <a class="btn btn-secondary ml-2" href="{% url 'department-home' %}">Clear</a>

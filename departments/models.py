@@ -13,7 +13,7 @@ class Department(models.Model):
     def doctor_count(self):
         from doctors.models import Doctor
 
-        return Doctor.objects.filter(pk=self.pk).count()
+        return Doctor.objects.filter(department=self.pk).count()
 
     def __str__(self):
         return f"{self.name} ({self.abbr})"

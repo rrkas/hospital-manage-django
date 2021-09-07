@@ -49,7 +49,7 @@ class DepartmentUpdate(LoginRequiredMixin, UpdateView):
 class DepartmentList(LoginRequiredMixin, ListView):
     model = Department
     context_object_name = "departments"
-    ordering = ["id"]
+    ordering = ["name"]
     paginate_by = global_settings.PAGINATION_COUNT
 
     def get_queryset(self):
@@ -57,13 +57,13 @@ class DepartmentList(LoginRequiredMixin, ListView):
         if query:
             if str(query).isnumeric():
                 result = Department.objects.filter(
-                    Q(pk=query) | Q(name__icontains=query)
+                    Q(pk=query) | Q(name__icontains=query) | Q(abbr__icontains=query)
                 )
             else:
-                result = Department.objects.filter(Q(name__icontains=query))
+                result = Department.objects.filter(Q(name__icontains=query) | Q(abbr__icontains=query))
         else:
             result = Department.objects.all()
-        return result.order_by("id")
+        return result.order_by("name")
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
