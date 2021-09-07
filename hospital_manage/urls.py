@@ -19,7 +19,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path, include
 
 from hospital_manage import settings
-from staffs import views as staff_views
+from organization import views as staff_views
 
 staffs = "staffs"
 
@@ -66,11 +66,8 @@ urlpatterns = [
         name="password_reset_complete",
     ),
     path("", include("common.urls")),
-    path("patients/", include("patients.urls")),
-    path("doctors/", include("doctors.urls")),
     path("org/", include("organization.urls")),
-    path("staffs/", include("staffs.urls")),
-    path("departments/", include("departments.urls")),
+    path("inventory/", include("inventory.urls")),
 ]
 
 if settings.DEBUG:

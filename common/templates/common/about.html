@@ -3,11 +3,11 @@
 
 <h1>About this project!</h1>
 <div>
-    Features
-    <ul>
+    <h3>Features</h3>
+    <ul type="square">
         {% for f_name,f_details in features.items %}
         <li>
-            {{ f_name }}
+            <b>{{ f_name }}</b>
             <ol>
                 {% for d in f_details %}
                 <li>{{ d }}</li>

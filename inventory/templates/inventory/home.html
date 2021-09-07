@@ -1,0 +1,30 @@
+{% extends 'common/layout.html' %}
+{% block breadnav %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Inventory</li>
+    </ol>
+</nav>
+{% endblock%}
+
+{% block content %}
+
+<h2>Inventory</h2>
+<div class="content-section">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <ul class="list-group">
+                {% for item in items %}
+                <li class="list-group-item list-group-item-light">
+                    <a href="{% url item.url_name %}" style="display: flex;">
+                        <span style="flex: 1;">{{ item.name }}</span>
+                        <span>{{ item.count }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

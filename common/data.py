@@ -1,11 +1,34 @@
 def get_features():
     return {
         "Users": [
-            "Register user",
-            "Login user",
+            "Register",
+            "Login",
+        ],
+        "Staffs (created automatically when users register)": [
+            "List",
+            "View",
+            "Update",
+            "Archive",
         ],
         "Patients": [
-            "Create patients",
-            "Update patients",
+            "Create",
+            "List",
+            "View",
+            "Update",
+            "Archive",
+        ],
+        "Doctors": [
+            "Create",
+            "List",
+            "View",
+            "Update",
+            "Archive",
+        ],
+        "Departments": [
+            "Create",
+            "List",
+            "View",
+            "Update",
+            "Archive",
         ],
     }
